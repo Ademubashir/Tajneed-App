@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Edit Member</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <h1>Edit Member</h1>
+        <p class="subtitle">Update the member's information.</p>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+                <div class="alert {{ category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endwith %}
+
+        <form method="post">
+
+            <label>Full Name</label>
+            <input
+                type="text"
+                name="full_name"
+                value="{{ member.full_name }}"
+                required
+            >
+
+            <label>Phone Number</label>
+            <input
+                type="tel"
+                name="phone"
+                value="{{ member.phone }}"
+                required
+            >
+
+            <label>Gender</label>
+            <select name="gender" required>
+                <option value="">Select gender</option>
+
+                <option value="Male"
+                    {% if member.gender == "Male" %}selected{% endif %}>
+                    Male
+                </option>
+
+                <option value="Female"
+                    {% if member.gender == "Female" %}selected{% endif %}>
+                    Female
+                </option>
+            </select>
+
+            <label>Date of Birth</label>
+            <input
+                type="date"
+                name="dob"
+                value="{{ member.dob or '' }}"
+            >
+
+            <label>State</label>
+            <input
+                type="text"
+                name="state"
+                value="{{ member.state or '' }}"
+            >
+
+            <label>School Attended</label>
+            <select name="school">
+
+                <option value="">Select school</option>
+
+                {% for school in schools %}
+                    <option value="{{ school }}"
+                        {% if member.school == school %}selected{% endif %}>
+                        {{ school }}
+                    </option>
+                {% endfor %}
+
+            </select>
+
+            <label>Level of Study</label>
+            <select name="level">
+
+                <option value="">Select level</option>
+
+                {% for level in levels %}
+                    <option value="{{ level }}"
+                        {% if member.level == level %}selected{% endif %}>
+                        {{ level }}
+                    </option>
+                {% endfor %}
+
+            </select>
+
+            <label>Course of Study</label>
+            <input
+                type="text"
+                name="course"
+                value="{{ member.course or '' }}"
+            >
+
+            <label>Email Address</label>
+            <input
+                type="email"
+                name="email"
+                value="{{ member.email or '' }}"
+            >
+
+            <button type="submit">
+                Save Changes
+            </button>
+
+            <a
+                href="{{ url_for('admin') }}"
+                class="button secondary"
+            >
+                Cancel
+            </a>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>

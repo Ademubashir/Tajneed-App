@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tajneed Admin</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container wide">
+    <div class="card">
+        <div class="topbar">
+            <div>
+                <h1>Tajneed Admin Dashboard</h1>
+                <p class="subtitle">Manage registered members.</p>
+            </div>
+            <a class="button secondary" href="{{ url_for('admin_logout') }}">Logout</a>
+        </div>
+
+        <div class="stats">
+            <div><strong>{{ total }}</strong><small>Total</small></div>
+            <div><strong>{{ males }}</strong><small>Male</small></div>
+            <div><strong>{{ females }}</strong><small>Female</small></div>
+        </div>
+
+        <form class="filters" method="get">
+            <input name="q" value="{{ q }}" placeholder="Search name, phone, school, course...">
+            <select name="gender">
+                <option value="">All genders</option>
+                <option value="Male" {% if gender == 'Male' %}selected{% endif %}>Male</option>
+                <option value="Female" {% if gender == 'Female' %}selected{% endif %}>Female</option>
+            </select>
+            <select name="school">
+                <option value="">All schools</option>
+                {% for s in schools %}
+                <option value="{{ s }}" {% if school == s %}selected{% endif %}>{{ s }}</option>
+                {% endfor %}
+            </select>
+            <select name="level">
+                <option value="">All levels</option>
+                {% for l in levels %}
+                <option value="{{ l }}" {% if level == l %}selected{% endif %}>{{ l }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">Filter</button>
+            <a class="button secondary" href="{{ url_for('admin') }}">Clear</a>
+            <a class="button" href="{{ url_for('export') }}">Export CSV</a>
+        </form>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Full Name</th>
+                    <th>Phone</th>
+                    <th>Gender</th>
+                    <th>DOB</th>
+                    <th>State</th>
+                    <th>School</th>
+                    <th>Level</th>
+                    <th>Course</th>
+                    <th>Email</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for m in members %}
+                <tr>
+                    <td>{{ m.id }}</td>
+                    <td>{{ m.full_name }}</td>
+                    <td>{{ m.phone }}</td>
+                    <td>{{ m.gender }}</td>
+                    <td>{{ m.dob or '' }}</td>
+                    <td>{{ m.state or '' }}</td>
+                    <td>{{ m.school or '' }}</td>
+                    <td>{{ m.level or '' }}</td>
+                    <td>{{ m.course or '' }}</td>
+                    <td>{{ m.email or '' }}</td>
+                    <td>
+                        <a class="button" href="{{ url_for('edit', i=m.id) }}">Edit</a>
+                        <form method="post" action="{{ url_for('delete', i=m.id) }}" onsubmit="return confirm('Delete this registration?');">
+                            <button class="danger" type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% else %}
+                <tr><td colspan="11" class="empty">No registrations found.</td></tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

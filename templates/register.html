@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tajneed Registration</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <h1>Tajneed Registration</h1>
+        <p class="subtitle">Please complete the form below.</p>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% for category, message in messages %}
+            <div class="alert {{ category }}">{{ message }}</div>
+          {% endfor %}
+        {% endwith %}
+
+        <form method="post">
+            <label>Full Name <span>*</span></label>
+            <input name="full_name" value="{{ data.get('full_name','') }}" required>
+
+            <label>Phone Number <span>*</span></label>
+            <input name="phone" type="tel" value="{{ data.get('phone','') }}" required>
+
+            <label>Gender <span>*</span></label>
+            <select name="gender" required>
+                <option value="">Select gender</option>
+                <option value="Male" {% if data.get('gender') == 'Male' %}selected{% endif %}>Male</option>
+                <option value="Female" {% if data.get('gender') == 'Female' %}selected{% endif %}>Female</option>
+            </select>
+
+            <label>Date of Birth</label>
+            <input name="dob" type="date" value="{{ data.get('dob','') }}">
+
+            <label>State</label>
+            <input name="state" value="{{ data.get('state','') }}">
+
+            <label>School Attended</label>
+            <select name="school">
+                <option value="">Select school</option>
+                {% for school in schools %}
+                <option value="{{ school }}" {% if data.get('school') == school %}selected{% endif %}>{{ school }}</option>
+                {% endfor %}
+            </select>
+
+            <label>Level of Study</label>
+            <select name="level">
+                <option value="">Select level</option>
+                {% for level in levels %}
+                <option value="{{ level }}" {% if data.get('level') == level %}selected{% endif %}>{{ level }}</option>
+                {% endfor %}
+            </select>
+
+            <label>Course of Study</label>
+            <input name="course" value="{{ data.get('course','') }}" placeholder="e.g. Computer Science">
+
+            <label>Email Address</label>
+            <input name="email" type="email" value="{{ data.get('email','') }}" placeholder="example@email.com">
+
+            <button type="submit">Submit Registration</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
