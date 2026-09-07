@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Successful</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css">
+</head>
+<body>
+    <div class="success-container">
+        <div class="success-card">
+            <img src="{{url_for('static', filename= 'amsa_logo.png')}}" alt="Amsa logo">
+
+            <h1>Jazakumullahu Khairan For Registering</h1>
+            <p>Your Registration has been submitted successfully.</p>
+            <h3>Connect with us on social media!</h3>
+            <div class="social-links">
+            <i class="fa-brands fa-facebook"></i>
+            <a href="https://www.facebook.com/100095097370737/" target="_blank">Facebook</a>
+            <i class="fa-brands fa-square-x-twitter"></i>
+            <a href="https://twitter.com/amsaosun" target="_blank">Twitter</a>
+            <i class="fa-brands fa-square-instagram"></i>
+            <a href="https://www.instagram.com/amsaosun" target="_blank">Instagram</a>
+            
+        </div>
+        <a href="/" class="home-btn">Back to Home</a>
+        </div>
+        
+    </div>
+    
+</body>
+</html>

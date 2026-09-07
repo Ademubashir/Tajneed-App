@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amsa Osun State Tajneed Registration</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="home-container">
+        <div class="home-card">
+            <img src="{{ url_for('static', filename='amsa_logo.png') }}" alt="Amsa Logo" class="amsa-logo">
+            <h1>Amsa Osun State Chapter</h1>
+            <h2>Welcome to the Tajneed Registration App</h2>
+            <p>Register for the Tajneed program and manage your registration details easily. 
+                Please click the button below to get started.
+            </p>
+            <a href="/register" class="btn">Start Registration</a>
+        </div>
+    </main>
+</body>
+</html>

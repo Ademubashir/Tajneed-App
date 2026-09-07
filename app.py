@@ -70,8 +70,15 @@ def admin_required(f):
         return f(*a, **k)
     return w
 
+@app.route("/")
+def home():
+    return render_template("index.html")
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/success")
+def success():
+    return render_template("success.html")
+
+@app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
         d = {k: request.form.get(k, "").strip() for k in [
@@ -100,7 +107,7 @@ def register():
             """, tuple(d.values()))
             c.commit()
             flash("Registration submitted successfully.", "success")
-            return redirect(url_for("register"))
+            return redirect(url_for("success"))
         except sqlite3.IntegrityError:
             flash("That phone number is already registered.", "error")
             return render_template("register.html", data=d, schools=SCHOOLS, levels=LEVELS)
