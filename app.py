@@ -167,6 +167,7 @@ def admin_login():
             session["admin"] = True
             return redirect(url_for("admin"))
         return render_template("login.html")
+    return render_template("login.html")
 
 @app.route("/admin/logout")
 def admin_logout():
