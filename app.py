@@ -158,6 +158,8 @@ def register():
             flash("That phone number is already registered.", "error")
             return render_template("register.html", data=d, schools=SCHOOLS, levels=LEVELS)
 
+    return render_template("register.html", data={}, schools=SCHOOLS, levels=LEVELS)
+
 @app.route("/admin/login", methods=["GET", "POST"])
 def admin_login():
     if request.method == "POST":
@@ -190,14 +192,18 @@ def admin():
         p +=["%" + q + "%"] * 7
 
     if gender:
-        sql += "AND gender = ?"
+        sql += " AND gender = ?"
         p.append(gender)
 
+    if school:
+        sql += " AND school = ?"
+        p.append(school)
+
     if level:
-        sql += "AND level=?"
+        sql += " AND level=?"
         p.append(level)
 
-    rows = c.execute(sql + "ORDER BY id DESC", p).fetchall()
+    rows = c.execute(sql + " ORDER BY id DESC", p).fetchall()
     total = c.execute("SELECT COUNT(*) AS n FROM members").fetchone()["n"]
     males = c.execute("SELECT COUNT(*) AS n FROM members WHERE gender='male' ").fetchone()["n"]
     females = c.execute("SELECT COUNT(*) AS n FROM members WHERE gender='female' ").fetchone()["n"]
@@ -206,8 +212,8 @@ def admin():
         "admin.html",
         members=rows,
         total=total,
-        male=males,
-        female=females,
+        males=males,
+        females=females,
         q=q,
         gender=gender,
         school=school,
@@ -234,12 +240,12 @@ def admin_edit(i):
             c.execute("""
                 UPDATE members SET
                 full_name=?, phone=?, gender=?, dob=?, state=?, school=?, level=?, course=?, email=?
-                WHERE id=?""", (d["full_name"], d["phone"], d["gender"], d["dob"], d["state"], d["level"], d["email"], i))
+                WHERE id=?""", (d["full_name"], d["phone"], d["gender"], d["dob"], d["state"], d["school"], d["level"], d["course"], d["email"], i))
             c.commit()
             flash("Member updated successfully.", "success")
             return redirect(url_for("admin"))
         except IntegrityError:
-            flash("That phone number has already being registered." "error")
+            flash("That phone number has already being registered.", "error")
 
     c.close()
     return render_template("edit.html", member=members, schools=SCHOOLS, levels=LEVELS)
@@ -271,12 +277,12 @@ def export():
 
     return send_file(
         io.BytesIO(s.getvalue().encode()),
-        mintype="text/csv",
-        at_attachment=True,
+        mimetype="text/csv",
+        as_attachment=True,
         download_name="tajneed_list.csv"
         )
 
 init_db()
 
-if __name__=="_main_":
+if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)), debug=True)
