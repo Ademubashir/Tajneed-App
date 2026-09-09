@@ -206,8 +206,9 @@ def admin():
 
     rows = c.execute(sql + " ORDER BY id DESC", p).fetchall()
     total = c.execute("SELECT COUNT(*) AS n FROM members").fetchone()["n"]
-    males = c.execute("SELECT COUNT(*) AS n FROM members WHERE gender='male' ").fetchone()["n"]
-    females = c.execute("SELECT COUNT(*) AS n FROM members WHERE gender='female' ").fetchone()["n"]
+    males = c.execute("SELECT COUNT(*) AS n FROM members WHERE gender='Male'").fetchone()["n"]
+    females = c.execute("SELECT COUNT(*) AS n FROM members WHERE gender='Female'").fetchone()["n"]
+    c.close()
 
     return render_template(
         "admin.html",

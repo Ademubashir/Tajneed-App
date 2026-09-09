@@ -78,8 +78,8 @@
                     <td>{{ m.course or '' }}</td>
                     <td>{{ m.email or '' }}</td>
                     <td>
-                        <a class="button" href="{{ url_for('edit', i=m.id) }}">Edit</a>
-                        <form method="post" action="{{ url_for('delete', i=m.id) }}" onsubmit="return confirm('Delete this registration?');">
+                        <a class="button" href="{{ url_for('admin_edit', i=m.id) }}">Edit</a>
+                        <form method="post" action="{{ url_for('admin_delete', i=m.id) }}" onsubmit="return confirm('Delete this registration?');">
                             <button class="danger" type="submit">Delete</button>
                         </form>
                     </td>
