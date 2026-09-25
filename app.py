@@ -122,7 +122,7 @@ def admin_required(f):
 
 @app.route("/")
 def home():
-    return render_template("maintenance.html")
+    return render_template("index.html")
 
 @app.route("/success")
 def success():
