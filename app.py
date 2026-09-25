@@ -62,6 +62,10 @@ SCHOOLS = [
     "Osun State University",
     "Federal Polytechnic Ede",
     "Fountain University",
+    "Osun State College of Health Technology Ilesa",
+    "Minaret University Ikirun",
+    "Osun State College of Technology Esa-Oke",
+    "Oduduwa University, Ile-Ife",
 ]
 
 LEVELS = ["100 level", "200 level", "300 level", "400 level", "500 level"]

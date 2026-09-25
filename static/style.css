@@ -233,3 +233,62 @@ code { background: #f3f4f6; padding: 3px 6px; border-radius: 4px; }
     color: black;
     border: 2px solid #111827;
 }
+
+.maintenance-container {
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.maintenance-card {
+    width: 100%;
+    max-width: 550px;
+    text-align: center;
+    padding: 45px 30px;
+}
+
+.maintenance-card .amsa_logo {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    margin-bottom: 20px;
+}
+
+.maintenance-card h1 {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.maintenance-card h2 {
+    font-size: 20px;
+    color: #6b7280;
+    margin-bottom: 25px;
+}
+
+.maintenance-card p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: #6b7280;
+    margin-bottom: 18px;
+}
+
+.maintenance-card .secretary {
+    margin-top: 30px;
+    color: #1f2937;
+}
+
+@media (max-width: 600px) {
+    .maintenance-card {
+        padding: 35px 20px;
+    }
+
+    .maintenance-card h1 {
+        font-size: 26px;
+    }
+
+    .maintenance-card h2 {
+        font-size: 18px;
+    }
+}
