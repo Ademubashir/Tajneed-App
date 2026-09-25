@@ -64,7 +64,7 @@ SCHOOLS = [
     "Fountain University",
     "Osun State College of Health Technology Ilesa",
     "Minaret University Ikirun",
-    "Osun State College of Technology Esa-Oke",
+    "Osun State College of Health Technology, Esa-Oke",
     "Oduduwa University, Ile-Ife",
 ]
 
