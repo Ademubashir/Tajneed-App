@@ -3,3 +3,4 @@ _pycache__/
 *.pyc
 tajneed.db
 .env
+.claude/

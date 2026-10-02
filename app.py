@@ -6,9 +6,25 @@ import csv
 from functools import wraps
 
 app = Flask(__name__)
-app.secret_key = "change-this-secret-key"
-ADMIN_USERNAME = "admin"
-ADMIN_PASSWORD = "welcome"
+secret_key = os.environ.get("SECRET_KEY")
+if secret_key is None:
+    if os.environ.get("FLASK_DEBUG", "false").lower() == "true":
+        secret_key = "dev-only-insecure-secret-key-do-not-use-in-production"
+    else:
+        raise RuntimeError("SECRET_KEY environment variable is required for production")
+app.secret_key = secret_key
+
+def _get_admin_creds():
+    username = os.environ.get("ADMIN_USERNAME")
+    password = os.environ.get("ADMIN_PASSWORD")
+    if username is None or password is None:
+        if os.environ.get("FLASK_DEBUG", "false").lower() == "true":
+            return "dev-admin", "dev-password-change-in-production"
+        else:
+            raise RuntimeError("ADMIN_USERNAME and ADMIN_PASSWORD environment variables are required for production")
+    return username, password
+
+ADMIN_USERNAME, ADMIN_PASSWORD = _get_admin_creds()
 
 # --- Database setup: Postgres on Render (when DATABASE_URL is set),
 # --- SQLite when running locally with no DATABASE_URL.
@@ -291,4 +307,5 @@ def export():
 init_db()
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)), debug=True)
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)),
+            debug=os.environ.get("FLASK_DEBUG", "false").lower() == "true")
